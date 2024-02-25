@@ -8,18 +8,27 @@ import useFetch from "./customHooks/useFetch";
 function App() {
   
   const [products, setProdcuts] = useState([]);
+  const [toSendData, setToDataSent] = useState([]);
   const { post } = useFetch();
 
   const productString = useRef(null);
 
-  
+  useEffect(() => {
+    post("http://localhost:3000/api/v1/products",toSendData)
+      .then((income) => {
+        
+        console.log(income)
+      })
+      .catch((error) => console.log("Could not sent products", error));
+  }, [products]);
 
   const handleSendClick = () => {
-        const dataRaw = productString.current.value
-        const splitedData = dataRaw.split(" ")
-        
-        //setToSendData(data)
-        console.log(splitedData);
+        const rawData = productString.current.value
+        const splitedData = rawData.split(" ")
+        setProdcuts(splitedData)
+        const jsonData = {products: products}
+        setToDataSent(jsonData)
+          
   };
   const primary = blueGrey[900];
   const secondary = blueGrey[700];

@@ -24,6 +24,7 @@ export default function useFetch() {
   }
 
   function post(url2, body) {
+    console.log(url2)
     return new Promise((resolve, reject) => {
       fetch(url2, {
         method: "post",
@@ -48,5 +49,5 @@ export default function useFetch() {
     });
   }
 
-  return { get, loading, post };
+  return { get,  post };
 };
