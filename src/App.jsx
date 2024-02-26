@@ -11,28 +11,32 @@ function App() {
   const [products, setProducts] = useState([]);
   const [toSendData, setToDataSent] = useState([]);
   const [dataReceived, setDataReceived] = useState([])
+  //const [productString, setProductString] = useState([])
   const { post } = useFetch();
 
+  
+   
+  
   const productString = useRef(null);
 
-  useEffect(() => {
-    post("http://localhost:3000/api/v1/products",toSendData)
-      .then((income) => {
-        
-        console.log(income)
-        setDataReceived(income)
-      })
-      .catch((error) => console.log("Could not sent products", error));
-  }, [products]);
-
   const handleSendClick = () => {
-        const rawData = productString.current.value
-        const splitedData = rawData.split(" ")
-        setProducts(splitedData)
-        const jsonData = {products: products}
-        setToDataSent(jsonData)
-          
+    const rawData = productString.current.value;
+    const splitedData = rawData.split(" ");
+    const jsonData = { products: splitedData };
+    setToDataSent(jsonData);
   };
+
+  useEffect(() => {
+    if (toSendData) {
+      post("http://localhost:3000/api/v1/products", toSendData)
+        .then((income) => {
+          console.log(income);
+          setDataReceived(income);
+        })
+        .catch((error) => console.log("Could not send products", error));
+    }
+  }, [toSendData]);
+ 
   const primary = blueGrey[900];
   const secondary = blueGrey[700];
   const gridContent = (
