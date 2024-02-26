@@ -1,14 +1,16 @@
 import "./App.css";
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import { blueGrey, grey } from '@mui/material/colors';
-
+import { blueGrey } from '@mui/material/colors';
+import BotonExcelDefault from "./components/ExcelButton";
 import { useState, useEffect ,useRef} from "react";
 import useFetch from "./customHooks/useFetch";
 
+
 function App() {
   
-  const [products, setProdcuts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [toSendData, setToDataSent] = useState([]);
+  const [dataReceived, setDataReceived] = useState([])
   const { post } = useFetch();
 
   const productString = useRef(null);
@@ -18,6 +20,7 @@ function App() {
       .then((income) => {
         
         console.log(income)
+        setDataReceived(income)
       })
       .catch((error) => console.log("Could not sent products", error));
   }, [products]);
@@ -25,7 +28,7 @@ function App() {
   const handleSendClick = () => {
         const rawData = productString.current.value
         const splitedData = rawData.split(" ")
-        setProdcuts(splitedData)
+        setProducts(splitedData)
         const jsonData = {products: products}
         setToDataSent(jsonData)
           
@@ -40,8 +43,8 @@ function App() {
       alignItems="center"
       spacing={2}
     >
-      <Grid  sx={{ mb: "50px" }} item xs={12} sm={12} md={12} xl={12} lg={12} >
-      <Typography variant="h1" color={primary}>
+      <Grid  sx={{ mt:"100px"  }} item xs={12} sm={12} md={12} xl={12} lg={12} >
+      <Typography variant="h3" color={primary}>
         Calidad de Generacion
         </Typography>
       </Grid>
@@ -61,6 +64,10 @@ function App() {
           Consultar
         </Button>
       </Grid>
+      <Grid item xs={12} sm={12} md={12} xl={12} lg={12}>
+      <BotonExcelDefault products={dataReceived.productJsonMock} />
+      </Grid>
+      
     </Grid>
   );
 
