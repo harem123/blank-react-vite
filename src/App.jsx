@@ -5,7 +5,6 @@ import BotonExcelDefault from "./components/ExcelButton";
 import { useState, useEffect ,useRef} from "react";
 import useFetch from "./customHooks/useFetch";
 
-
 function App() {
   
   const [products, setProducts] = useState([]);
@@ -14,9 +13,6 @@ function App() {
   //const [productString, setProductString] = useState([])
   const { post } = useFetch();
 
-  
-   
-  
   const productString = useRef(null);
 
   const handleSendClick = () => {
@@ -28,7 +24,7 @@ function App() {
 
   useEffect(() => {
     if (toSendData) {
-      post("http://localhost:3000/api/v1/products", toSendData)
+      post("http://localhost:3000/api/v1/anomalies", toSendData)
         .then((income) => {
           console.log(income);
           setDataReceived(income);
@@ -69,7 +65,7 @@ function App() {
         </Button>
       </Grid>
       <Grid item xs={12} sm={12} md={12} xl={12} lg={12}>
-      <BotonExcelDefault products={dataReceived.productJsonMock} />
+      <BotonExcelDefault products={dataReceived.data} />
       </Grid>
       
     </Grid>
