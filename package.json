@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 4000",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "serve dist -s -n -L -p $PORT"
+    "start": "serve dist -s -n -L -p 8000"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.18",
+    "postcss-cli": "^11.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "serve": "^14.2.0"
@@ -22,6 +24,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "tailwindcss": "^3.4.1",
     "vite": "^4.3.1"
   }
 }
